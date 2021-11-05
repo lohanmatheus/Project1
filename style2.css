@@ -1,0 +1,34 @@
+body {
+    background-color: #f7f7f7;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+}
+
+h1 {
+    color: #9c88ff;
+}
+
+
+.buttonS:hover{
+    color: #333333;
+ background-color:#9c88ff;
+
+    transition: 0.5s;
+
+    opacity: 0.7;
+
+}
+
+.buttonSC:hover{
+    color: #333333;
+    background-color:#9c88ff;
+
+    transition: 0.5s;
+
+    opacity: 0.7;
+
+}

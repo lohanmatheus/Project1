@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style2.css" />
+    <title>Login</title>
+</head>
+<body background="./imagem/imagem1.jpg">
+<div id="form-login">
+    <h1 id="tittle-login">Área de Login</h1>
+    <form method="post" id="area-login">
+
+        <input id="login"  value="" placeholder="Usuario" autocomplete="off" required>
+
+        <input id="password" value="" type="password" placeholder="Insira sua senha" required>
+        <br/>
+        <button class="buttonS" type="button" onclick="verificaLogin()">Entrar</button>
+
+        <a href="cadastro.html"> <button class="buttonSC" type="button">Cadastrar</button> </a>
+
+    </form>
+
+</div>
+
+
+
+
+<script>
+    const verificaLogin = function () {
+        let login = document.getElementById('login').value
+        let password = document.getElementById('password').value
+
+
+        if (login ===  '') {
+            alert('Insira o seu login!')
+            return
+        }
+        if(password === ''){
+            alert('Insira sua senha!')
+            return
+        }
+        sendLogin (login, password);
+    }
+
+    function sendLogin(login, password){
+        const paramsLogin = {
+            data: {
+                login: login,
+                password: password
+
+            },
+            classe: 'usuario',
+            acao: 'logar'
+        }
+
+        let loginRequest = {
+            method: 'POST',
+            cache: 'default',
+            body: JSON.stringify(paramsLogin),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        let myRequest = new Request('http://localhost:8000/conecta.php', loginRequest);
+
+        fetch(myRequest).then(response => {
+            return response.json();
+        }).then(function (response) {
+           if (!response.success){
+               alert(response.msg)
+               return false
+           }
+            window.location.href = "telaSaldo.php";
+
+
+
+        })
+    }
+</script>
+</body>

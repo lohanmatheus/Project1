@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style2.css" />
+    <title>Cadastro</title>
+</head>
+<body background="./imagem/imagem1.jpg">
+<div id="form-cadastro">
+    <h1 id="tittle-login">Área de Cadastro</h1>
+    <form method="post" id="area-cadastro">
+
+
+        <label for="name">    Nome :
+            <br>  <input id="name" value="" placeholder="Nome" autocomplete="off" required><br></label>
+
+        <label for="login">    Login :
+            <br>  <input id="login" value="" placeholder="Usuario" autocomplete="off" required><br></label>
+
+        <label for="password"> Senha :
+            <br>  <input id="password" value="" type="password" placeholder="Insira uma senha" required><br/></label>
+
+        <label for="salary"> Renda Fixa $:
+            <br>  <input id="salary" value="" type="number" placeholder="Insira sua renda" required ><br/></label>
+
+        <button class="buttonS" type="button" onclick="Cadastro()">Cadastrar</button>
+
+        <a href="Login.html"> <button class="buttonSC" type="button">Voltar</button> </a>
+
+
+
+    </form>
+</div>
+
+<script>
+    const Cadastro = function () {
+        let name = document.getElementById('name').value
+        let login = document.getElementById('login').value
+        let password = document.getElementById('password').value
+        let salary  = document.getElementById('salary').value
+
+
+        if (name === '') {
+            alert('Insira um Nome!')
+            return
+        }
+
+        if (login === '') {
+            alert('Insira um Login!')
+            return
+            }
+        if (password === '') {
+            alert('Insira uma Senha!')
+            return
+            }
+            enviaCadastro(name, login, password, salary);
+        }
+
+
+    function enviaCadastro(name, login, password,salary) {
+        let bodyRequest = JSON.stringify({
+            name: name,
+            login: login,
+            password: password,
+            fixed_salary:salary,
+            classe: 'usuario',
+            acao: 'inserindo'
+        })
+
+        let configRequest = {
+            method: 'POST',
+            cache: 'default',
+            body:  bodyRequest,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        let myRequest = new Request('http://localhost:8000/conecta.php', configRequest);
+
+        fetch(myRequest).then(response => {
+            return response.json();
+        }).then(function (response) {
+            if (response.success === true) {
+                if(confirm('Registro Inserido. Cadastrar outro usuario ?')){
+                    document.getElementById('area-cadastro').reset();
+                    window.location.href = "cadastro.html";
+
+                }
+                else{
+                    window.location.href = "Login.html";
+                }
+
+            }
+
+
+
+
+
+
+        })
+    }
+
+</script>
+
+
+
+
+</body>
+
+
+
+</html>
